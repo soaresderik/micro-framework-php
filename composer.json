@@ -1,0 +1,19 @@
+{
+    "name": "deriksoares/micro-framework",
+    "description": "A micro framework PHP",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "andre",
+            "email": "codigoaberto.info@gmail.com"
+        }
+    ],
+    "require": {
+        "rakit/validation": "^1.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/"
+        }
+    }
+}
