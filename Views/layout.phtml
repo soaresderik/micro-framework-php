@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title> Hello </title>
+
+    <link href="/assets/css/style.css" rel="stylesheet">
+    <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/assets/toasty/dist/toasty.min.css" rel="stylesheet">
+</head>
+<body>
+
+<?php $this->content() ?>
+
+
+<script>
+    (function(){
+        const toast = new Toasty();
+
+        <?php if($this->errors):
+            foreach($this->errors as $error): ?>
+            toast.error("<?= $error ?>", 4000);
+        <?php endforeach;
+              endif;    ?>
+
+      <?php if($this->success):
+            foreach($this->success as $success): ?>
+            toast.success("<?= $success ?>", 4000);
+        <?php endforeach;
+              endif;    ?>
+    })(); 
+</script>
+</body>
+</html>
