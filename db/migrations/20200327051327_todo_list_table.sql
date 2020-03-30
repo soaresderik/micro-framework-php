@@ -1,13 +1,14 @@
 -- migrate:up
-create table todos (
-    id int unsigned primary key auto_increment,
-    title varchar(150) not null,
-    description text not null,
-    created_at timestamp default now(),
-    user_id int unsigned not null,
-    foreign key (user_id) references users(id) on delete cascade
-)
+CREATE TABLE IF NOT EXISTS `users` (
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(200) DEFAULT NULL,
+  `email` varchar(200) DEFAULT NULL,
+  `password` varchar(200) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- migrate:down
-drop table todos;
+DROP TABLE users;
 

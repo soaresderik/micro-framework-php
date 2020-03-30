@@ -1,12 +1,10 @@
-<?php 
+<?php
 
-$routes[] = ["/users", "UserController@index"];
-$routes[] = ["/users/login", "UserController@index"];
-$routes[] = ["/users/signin", "UserController@login"];
-$routes[] = ["/users/register", "UserController@register"];
-$routes[] = ["/users/store", "UserController@store"];
+$routes[] = ["/users/login", "User\UserController@login"];
+$routes[] = ["/users/auth", "User\UserController@auth"];
+$routes[] = ["/users/register", "User\UserController@register"];
+$routes[] = ["/users/store", "User\UserController@store"];
 
-$routes[] = ["/users/dashboard", "UserController@create", "auth"];
-$routes[] = ["/users/{id}/create", "UserController@create"];
+$routes[] = ["/todos", "Todo\TodoController@index", "auth"];
 
 return $routes;
