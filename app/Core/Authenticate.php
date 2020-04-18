@@ -2,6 +2,8 @@
 
 namespace App\Core;
 
+use App\Modules\User\UserRepository;
+
 trait Authenticate
 {
   public function login()
@@ -11,18 +13,22 @@ trait Authenticate
 
   public function auth($request)
   {
-    // TODO: Buscar e-mail no BD
-    $result = $request->post->email;
 
-    // TODO: Aplicar verificação de senha
-    // $result && password_verify($request->post->password, $result->password)
-    if (true) {
+    if (!$request->post->email || !$request->post->password)
+      return Redirect::route('/users/login', [
+        'errors' => ['Os Campos são obrigatórios'],
+        'inputs' => ['email' => $request->post->email]
+      ]);
+
+    $result = UserRepository::where("email", $request->post->email)->first();
+
+    if ($result && password_verify($request->post->password, $result->password)) {
       $user = [
         'id' => 1,
         'name' => "Ghost",
         'email' => $result->email
       ];
-
+    
       Session::set('user', $user);
       return Redirect::route('/todos');
     }

@@ -2,12 +2,13 @@
 
 namespace App\Core;
 
-class ParserSQL
+class SQL
 {
 
+  private $conn;
   public function __construct()
   {
-    $this->conn = Database::getConnection();
+    self::$conn = Database::getConnection();
   }
 
   private function setParams($statement, $parameters = array())
@@ -25,24 +26,24 @@ class ParserSQL
     $statement->bindParam($key, $value);
   }
 
-  public function query($rawQuery, $params = array())
+  public static function query($rawQuery, $params = array())
   {
 
-    $stmt = $this->conn->prepare($rawQuery);
+    $stmt = self::$conn->prepare($rawQuery);
 
-    $this->setParams($stmt, $params);
+    self::setParams($stmt, $params);
 
     $stmt->execute();
 
-    return $this->conn->lastInsertId();
+    return self::$conn->lastInsertId();
   }
 
-  public function select($rawQuery, $params = array()): array
+  public static function select($rawQuery, $params = array()): array
   {
 
-    $stmt = $this->conn->prepare($rawQuery);
+    $stmt = self::$conn->prepare($rawQuery);
 
-    $this->setParams($stmt, $params);
+    self::setParams($stmt, $params);
 
     $stmt->execute();
 

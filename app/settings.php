@@ -1,11 +1,16 @@
 <?php
 
-$dotenv = Dotenv\Dotenv::createImmutable(dirname(__DIR__));
+// Define root path
+defined('DS') ?: define('DS', DIRECTORY_SEPARATOR);
+defined('ROOT') ?: define('ROOT', dirname(__DIR__) . DS);
+
+$dotenv = Dotenv\Dotenv::createImmutable(ROOT);
 $dotenv->load();
 
 $settings = [];
 
 $settings["db"] = [
+  "driver"    => "mysql",
   "host"      =>  getenv("DB_HOST") ?: "127.0.0.1",
   "database"  =>  getenv("DB_NAME") ?: "local",
   "user"      =>  getenv("DB_USER") ?: "root",

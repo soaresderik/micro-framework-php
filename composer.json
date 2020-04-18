@@ -10,7 +10,8 @@
     ],
     "require": {
         "rakit/validation": "^1.2",
-        "vlucas/phpdotenv": "^4.1"
+        "vlucas/phpdotenv": "^4.1",
+        "illuminate/database": "^7.6"
     },
     "autoload": {
         "psr-4": {
