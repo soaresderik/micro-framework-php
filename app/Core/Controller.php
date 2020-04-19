@@ -47,8 +47,8 @@ class Controller
 
   protected function layout()
   {
-    if (file_exists(__DIR__ . "/../Views/{$this->layoutPath}.phtml")) {
-      return require_once __DIR__ . "/../Views/{$this->layoutPath}.phtml";
+    if (file_exists(__DIR__ . "/../Views/{$this->layoutPath}.php")) {
+      return require_once __DIR__ . "/../Views/{$this->layoutPath}.php";
     } else {
       echo "Error: Layout não encontrado";
     }
@@ -56,8 +56,8 @@ class Controller
 
   protected function content()
   {
-    if (file_exists(__DIR__ . "/../Views/{$this->viewPath}.phtml")) {
-      return require_once __DIR__ . "/../Views/{$this->viewPath}.phtml";
+    if (file_exists(__DIR__ . "/../Views/{$this->viewPath}.php")) {
+      return require_once __DIR__ . "/../Views/{$this->viewPath}.php";
     } else {
       echo "Error: View path not found!";
     }
@@ -66,5 +66,9 @@ class Controller
   public function forbidden()
   {
     return Redirect::route('/users/login');
+  }
+
+  public static function toJson($data){
+    return json_encode($data ?: [], JSON_UNESCAPED_UNICODE);
   }
 }

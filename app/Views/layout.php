@@ -5,26 +5,21 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title> Hello </title>
+  <title> Tasks </title>
 
   <link href="/assets/css/style.css" rel="stylesheet">
   <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script>
 </head>
 
 <body>
-  <header>
+  <header id="header">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-      <a class="navbar-brand" href="#">Navbar</a>
+      <a class="navbar-brand" href="/">Navbar</a>
       <div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
-        <ul class="navbar-nav">
-          <li class="nav-item active">
-            <a class="nav-link" href="#">Listar <span class="sr-only">(current)</span></a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Criar</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Sair</a>
+        <ul class="navbar-nav" v-for="item in navbar" :key="item.name">
+          <li :class="['nav-item', pathname === item.path ? 'active' : '']">
+            <a class="nav-link" :href="item.path">{{ item.name }}</a>
           </li>
         </ul>
       </div>
@@ -38,6 +33,27 @@
   <script>
     (function() {
       const toast = new Toasty();
+
+      const header = new Vue({
+        el: "#header",
+        data: () => ({
+          navbar: [
+            {
+              name: "Tarefas",
+              path: "/todos"
+            },
+            {
+              name: "Criar",
+              path: "/todos/create"
+            },
+            {
+              name: "Sair",
+              path: "/todos/logout"
+            }
+          ],
+          pathname: window.location.pathname
+        })
+      });
 
       <?php if ($this->errors) :
         foreach ($this->errors as $error) : ?>

@@ -24,8 +24,8 @@ trait Authenticate
 
     if ($result && password_verify($request->post->password, $result->password)) {
       $user = [
-        'id' => 1,
-        'name' => "Ghost",
+        'id' => $result->id,
+        'name' => $result->name,
         'email' => $result->email
       ];
     
@@ -42,6 +42,6 @@ trait Authenticate
   public function logout()
   {
     Session::destroy('user');
-    return Redirect::route('/login');
+    return Redirect::route('/users/login');
   }
 }
