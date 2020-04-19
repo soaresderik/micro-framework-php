@@ -9,12 +9,13 @@
   <title>Template de login</title>
 
   <!-- Principal CSS do Bootstrap -->
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script>
   <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
   <link href="/assets/toasty/dist/toasty.min.css" rel="stylesheet">
 
 </head>
 
-<body class="text-center">
+<body class="text-center" id="login">
   <form class="form-signin" action="/users/auth" method="POST">
     <h1 class="h3 mb-3 font-weight-normal">Faça login</h1>
 
@@ -86,18 +87,18 @@
     (function() {
       const toast = new Toasty();
 
-      <?php if ($this->errors) :
-        foreach ($this->errors as $error) : ?>
-          toast.error("<?= $error ?>");
-      <?php endforeach;
-      endif;    ?>
+      const header = new Vue({
+        el: "#login",
+        created: () => {
+          [...<?= $this->errors ?>].forEach(e => {
+            toast.error(e);
+          });
 
-      <?php if ($this->success) :
-        foreach ($this->success as $success) : ?>
-          toast.success("<?= $success ?>");
-      <?php endforeach;
-      endif;    ?>
-
+          [...<?= $this->success ?>].forEach(e => {
+            toast.error(e);
+          });
+        }
+      });
 
     })();
   </script>

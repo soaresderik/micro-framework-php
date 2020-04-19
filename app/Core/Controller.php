@@ -20,18 +20,16 @@ class Controller
   {
     $this->view = new \stdClass;
     $this->validator = new Validator();
-    if (Session::get('errors')) {
-      $this->errors = Session::get('errors');
-      Session::destroy('errors');
-    }
-    if (Session::get('inputs')) {
-      $this->inputs = Session::get('inputs');
-      Session::destroy('inputs');
-    }
-    if (Session::get('success')) {
-      $this->success = Session::get('success');
-      Session::destroy('success');
-    }
+
+    $this->errors = self::toJson(Session::get('errors'));
+    Session::destroy('errors');
+
+    $this->inputs = Session::get('inputs');
+    Session::destroy('inputs');
+
+    $this->success = self::toJson(Session::get('success'));
+    Session::destroy('success');
+
   }
 
   protected function render($viewPath, $layoutPath = null)

@@ -10,23 +10,31 @@
   <link href="/assets/css/style.css" rel="stylesheet">
   <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script>
+  <script src="/assets/js/vuelidate.min.js"></script>
+  <script src="/assets/js/validators.min.js"></script>
+  <link href="/assets/toasty/dist/toasty.min.css" rel="stylesheet">
+  <script>
+    Vue.use(window.vuelidate.default);
+  </script>
 </head>
 
 <body>
-  <header id="header">
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-      <a class="navbar-brand" href="/">Navbar</a>
-      <div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
-        <ul class="navbar-nav" v-for="item in navbar" :key="item.name">
-          <li :class="['nav-item', pathname === item.path ? 'active' : '']">
-            <a class="nav-link" :href="item.path">{{ item.name }}</a>
-          </li>
-        </ul>
-      </div>
-    </nav>
-  </header>
-  <div class="container col-md-8">
-    <?php $this->content() ?>
+  <div id="main">
+    <header id="header">
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="/">Navbar</a>
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
+          <ul class="navbar-nav" v-for="item in navbar" :key="item.name">
+            <li :class="['nav-item', pathname === item.path ? 'active' : '']">
+              <a class="nav-link" :href="item.path">{{ item.name }}</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+    <div class="container col-md-8 mt-5">
+      <?php $this->content() ?>
+    </div>
   </div>
 
   <script src="/assets/toasty/dist/toasty.min.js"> </script>
@@ -48,24 +56,21 @@
             },
             {
               name: "Sair",
-              path: "/todos/logout"
+              path: "/users/logout"
             }
           ],
           pathname: window.location.pathname
-        })
+        }),
+        created: () => {
+          [...<?= $this->errors ?>].forEach(e => {
+            toast.error(e);
+          });
+
+          [...<?= $this->success ?>].forEach(e => {
+            toast.error(e);
+          });
+        }
       });
-
-      <?php if ($this->errors) :
-        foreach ($this->errors as $error) : ?>
-          toast.error("<?= $error ?>", 4000);
-      <?php endforeach;
-      endif;    ?>
-
-      <?php if ($this->success) :
-        foreach ($this->success as $success) : ?>
-          toast.success("<?= $success ?>", 4000);
-      <?php endforeach;
-      endif;    ?>
     })();
   </script>
 </body>
